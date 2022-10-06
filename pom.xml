@@ -19,6 +19,7 @@
     <module>core-api</module>
     <module>utils</module>
     <module>core</module>
+    <module>migration</module>
   </modules>
 
   <dependencies>

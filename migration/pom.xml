@@ -12,7 +12,7 @@
     </parent>
 
     <packaging>jar</packaging>
-    <artifactId>person-core</artifactId>
+    <artifactId>migration</artifactId>
 
     <dependencies>
         <dependency>
