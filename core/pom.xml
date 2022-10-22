@@ -11,8 +11,8 @@
         <relativePath>../dependency-management-bom/pom.xml</relativePath>
     </parent>
 
-    <packaging>jar</packaging>
     <artifactId>person-core</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -26,6 +26,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
@@ -36,7 +40,15 @@
         </dependency>
         <dependency>
             <groupId>liga.medical</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>liga.medical</groupId>
             <artifactId>person-core-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>liga.medical</groupId>
+            <artifactId>person-utils</artifactId>
         </dependency>
         <dependency>
             <groupId>liga.medical</groupId>
@@ -46,12 +58,15 @@
     </dependencies>
 
     <build>
-        <!--        <finalName>analyzer-service</finalName>-->
+        <finalName>person-service-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
+                <configuration>
+                    <mainClass>liga.medical.person.core.PersonServiceApplication</mainClass>
+                </configuration>
                 <executions>
                     <execution>
                         <id>build-info</id>
@@ -62,5 +77,16 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.yaml</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>

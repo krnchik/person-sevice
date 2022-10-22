@@ -52,6 +52,11 @@
             </dependency>
             <dependency>
                 <groupId>liga.medical</groupId>
+                <artifactId>common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>liga.medical</groupId>
                 <artifactId>person-core-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -62,7 +67,7 @@
             </dependency>
             <dependency>
                 <groupId>liga.medical</groupId>
-                <artifactId>monitoring-utils</artifactId>
+                <artifactId>person-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
