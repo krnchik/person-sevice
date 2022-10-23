@@ -9,17 +9,16 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <version>0.0.1-SNAPSHOT</version>
   <artifactId>person-service</artifactId>
   <packaging>pom</packaging>
 
   <modules>
+    <module>person-service-core</module>
+    <module>person-service-core-api</module>
     <module>dependency-management-bom</module>
-    <module>dto</module>
-    <module>core-api</module>
-    <module>utils</module>
-    <module>person-core</module>
-    <module>migration</module>
+    <module>person-service-utils</module>
+    <module>person-service-dto</module>
+    <module>person-service-migration</module>
   </modules>
 
   <dependencies>
