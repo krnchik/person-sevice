@@ -3,12 +3,13 @@ package liga.medical.personservice.core.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
@@ -18,24 +19,24 @@ import java.util.List;
 public class MedicalCard {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    @Column(name = "client_status", nullable = false)
+    @Column(name = "client_status")
     private String clientStatus;
 
     @Column(name = "med_status")
     private String medStatus;
 
-    @Column(name = "registry_dt", nullable = false)
+    @Column(name = "registry_dt")
     private java.sql.Date registryDt;
 
     @Column(name = "comment")
     private String comment;
 
-    @OneToMany(mappedBy = "illness")
+    @OneToMany(mappedBy = "medicalCard")
     private List<Illness> illnesses;
 
-    @OneToMany(mappedBy = "person_data")
+    @OneToMany(mappedBy = "medicalCard")
     private List<PersonData> personData;
 }

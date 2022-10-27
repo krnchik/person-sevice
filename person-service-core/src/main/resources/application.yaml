@@ -5,21 +5,33 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=medical
-    username: postgres
-    password: root
+    url: jdbc:postgresql://localhost:5432/person_db
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
-
+      jdbc-url: jdbc:postgresql://localhost:5432/person_db?currentSchema=medical
+      username: postgres
+      password: root
+    initialization-mode: always
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
-  sql:
-    init:
-      mode: always
-      data-location: classpath:init/schema.sql
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: false
+
+  liquibase:
+    change-log: classpath:/db/changelog.xml
+    enabled: true
+    default-schema: medical
 
 management:
   endpoints:
