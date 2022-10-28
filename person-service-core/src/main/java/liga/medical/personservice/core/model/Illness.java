@@ -25,7 +25,7 @@ public class Illness {
     @Column(name = "type_id")
     private long typeId;
 
-    @Column(name = "heaviness")
+    @Column(name = "heaviness", length = 1)
     private String heaviness;
 
     @Column(name = "appearance_dttm")

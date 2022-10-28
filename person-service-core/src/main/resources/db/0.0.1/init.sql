@@ -60,6 +60,16 @@ create table if not exists medical.person_data
     constraint person_data_check
         check (parent_id <> id)
 );
+
+create sequence medical.contact_id_seq
+start with 1
+increment by 1
+no minvalue
+no maxvalue
+cache 1;
+alter sequence medical.contact_id_seq OWNED BY medical.contact.id;
+alter table only medical.contact alter column id set default nextval('medical.contact_id_seq'::regclass);
+
 CREATE VIEW multi_view AS
 (
 SELECT i.type_id, i.recovery_dt, mc.client_status

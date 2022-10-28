@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -36,7 +36,7 @@ public class PersonData {
     @Column(name = "age")
     private long age;
 
-    @Column(name = "sex")
+    @Column(name = "sex", length = 1)
     private String sex;
 
     @ManyToOne
@@ -52,5 +52,5 @@ public class PersonData {
     private PersonData personData;
 
     @OneToMany(mappedBy = "personData")
-    private List<PersonData> personDatalist;
+    private Set<PersonData> personDatalist;
 }
