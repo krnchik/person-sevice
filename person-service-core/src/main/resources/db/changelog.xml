@@ -7,5 +7,5 @@
 
     <!-- Changes to include -->
     <include file="db/0.0.1/init.sql"/>
-
+    <include file="db/0.0.2/add_security_table.sql"/>
 </databaseChangeLog>
