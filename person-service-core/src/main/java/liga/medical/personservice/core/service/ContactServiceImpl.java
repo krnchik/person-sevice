@@ -2,6 +2,7 @@ package liga.medical.personservice.core.service;
 
 import liga.medical.personservice.core.model.Contact;
 import liga.medical.personservice.core.repository.ContactMapper;
+import liga.medical.personservice.core.service.api.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,12 @@
 server:
-  port: 8021
+  port: 8080
   servlet:
     context-path: /
 
 spring:
+  thymeleaf:
+    prefix: classpath:/templates
+    suffix: .html
   datasource:
     url: jdbc:postgresql://localhost:5432/person_db
     driver-class-name: org.postgresql.Driver
@@ -15,7 +18,7 @@ spring:
     initialization-mode: always
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         jdbc:

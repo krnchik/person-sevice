@@ -1,4 +1,4 @@
-package liga.medical.personservice.core.service;
+package liga.medical.personservice.core.service.api;
 
 import liga.medical.personservice.core.model.Contact;
 

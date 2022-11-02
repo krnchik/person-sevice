@@ -1,7 +1,11 @@
 package liga.medical.personservice.core.model;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +19,13 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "person_data")
+@Table(name = "person_data", schema = "medical")
 public class PersonData {
 
     @Id

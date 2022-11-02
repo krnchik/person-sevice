@@ -1,7 +1,10 @@
 package liga.medical.personservice.core.model.security;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +17,12 @@ import javax.persistence.Transient;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 @NoArgsConstructor
-@Table(name = "role")
+@Table(name = "role", schema = "medical")
 public class Role {
 
     @Id
