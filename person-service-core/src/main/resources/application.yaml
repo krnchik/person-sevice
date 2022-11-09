@@ -4,9 +4,10 @@ server:
     context-path: /
 
 spring:
-  thymeleaf:
-    prefix: classpath:/templates
-    suffix: .html
+  web:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
   datasource:
     url: jdbc:postgresql://localhost:5432/person_db
     driver-class-name: org.postgresql.Driver

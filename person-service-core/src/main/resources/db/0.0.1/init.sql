@@ -61,19 +61,11 @@ create table if not exists medical.person_data
         check (parent_id <> id)
 );
 
-create sequence medical.contact_id_seq
-start with 1
-increment by 1
-no minvalue
-no maxvalue
-cache 1;
-alter sequence medical.contact_id_seq OWNED BY medical.contact.id;
-alter table only medical.contact alter column id set default nextval('medical.contact_id_seq'::regclass);
-
-CREATE VIEW multi_view AS
+create table if not exists medical.signals
 (
-SELECT i.type_id, i.recovery_dt, mc.client_status
-FROM medical.medical_card mc
-INNER JOIN medical.illness i
-on mc.id = i.medical_card_id
+    id              bigint
+        primary key,
+    description text ,
+    type varchar(255),
+    person_data_id bigint references medical.person_data
 );

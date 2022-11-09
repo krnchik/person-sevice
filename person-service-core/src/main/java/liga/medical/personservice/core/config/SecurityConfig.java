@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -18,17 +17,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
 
-    @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER")
-                .antMatchers("/", "/home", "/about").permitAll()
+                .antMatchers("/news").hasRole("USER")
+                .antMatchers("/person/all").hasRole("USER")
+                .antMatchers("/address/update").hasRole("ADMIN")
+                .antMatchers("/illness/update").hasRole("ADMIN")
+                .antMatchers("/contact/update").hasRole("ADMIN")
+                .antMatchers("/medicalcard/update").hasRole("ADMIN")
+                .antMatchers("/person/update").hasRole("ADMIN")
+                .antMatchers("/person/delete/**").hasRole("ADMIN")
+                .antMatchers("/person/save").hasRole("ADMIN")
+                .antMatchers("/person/").hasRole("USER")
+                .antMatchers("/", "/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
@@ -36,8 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll()
                 .logoutSuccessUrl("/")
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .csrf().disable();
     }

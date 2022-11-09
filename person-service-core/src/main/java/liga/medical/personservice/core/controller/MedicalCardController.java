@@ -1,15 +1,13 @@
 package liga.medical.personservice.core.controller;
 
+import liga.medical.personservice.core.annotation.DbLog;
 import liga.medical.personservice.core.dto.MedicalCardDto;
-import liga.medical.personservice.core.exception.NoElementInDb;
+import liga.medical.personservice.core.exception.NoElementInDbException;
 import liga.medical.personservice.core.mapper.MedicalCardMapper;
-import liga.medical.personservice.core.model.MedicalCard;
 import liga.medical.personservice.core.service.api.MedicalCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,19 +27,14 @@ public class MedicalCardController {
         this.mapper = mapper;
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<MedicalCardDto> save(@RequestBody MedicalCardDto medicalCardDto) {
-        service.save(mapper.toEntity(medicalCardDto));
-        return new ResponseEntity<>(medicalCardDto, HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}")
+    @PostMapping("/update/")
     @ResponseBody
-    public ResponseEntity<MedicalCardDto> findById(@PathVariable("id") Long id) {
+    @DbLog
+    public ResponseEntity<MedicalCardDto> updateById(@RequestBody MedicalCardDto medicalCardDto) {
         try {
-            MedicalCard medicalCard = service.findById(id);
-            return new ResponseEntity<>(mapper.toDto(medicalCard), HttpStatus.OK);
-        } catch (NoElementInDb e) {
+            service.update(mapper.toEntity(medicalCardDto));
+            return new ResponseEntity<>(medicalCardDto, HttpStatus.OK);
+        } catch (NoElementInDbException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -9,12 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDataDto {
+public class PersonDataDto implements Serializable {
 
     @Id
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)

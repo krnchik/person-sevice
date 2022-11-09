@@ -1,30 +1,36 @@
 package liga.medical.personservice.core.service;
 
+import liga.medical.personservice.core.exception.NoElementInDbException;
 import liga.medical.personservice.core.model.Contact;
-import liga.medical.personservice.core.repository.ContactMapper;
+import liga.medical.personservice.core.repository.ContactJpaRepository;
 import liga.medical.personservice.core.service.api.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ContactServiceImpl implements ContactService {
 
-    private final ContactMapper mapper;
+    private final ContactJpaRepository repository;
 
     @Autowired
-    public ContactServiceImpl(ContactMapper mapper) {
-        this.mapper = mapper;
+    public ContactServiceImpl(ContactJpaRepository repository) {
+        this.repository = repository;
     }
 
-    @Override
-    public List<Contact> findAll() {
-        return mapper.findAll();
-    }
+    @Transactional
+    public void update(Contact contact) throws NoElementInDbException {
+        if (repository.findById(contact.getId()).isEmpty())
+            throw new NoElementInDbException();
+        repository.findById(contact.getId())
+                .ifPresent(contact1 -> {
+                    contact1.setProfileLink(contact.getProfileLink());
+                    contact1.setEmail(contact.getEmail());
+                    contact1.setPhoneNumber(contact.getPhoneNumber());
+                    contact1.setPersonData(contact.getPersonData());
+                    contact1.setAddresses(contact.getAddresses());
 
-    @Override
-    public long save(Contact contact) {
-        return mapper.save(contact);
+                    repository.save(contact1);
+                });
     }
 }

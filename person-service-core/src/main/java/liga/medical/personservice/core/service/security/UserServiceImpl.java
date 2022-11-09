@@ -1,5 +1,6 @@
 package liga.medical.personservice.core.service.security;
 
+import liga.medical.personservice.core.annotation.DbLog;
 import liga.medical.personservice.core.dto.security.UserDto;
 import liga.medical.personservice.core.exception.NoUserRoleException;
 import liga.medical.personservice.core.mapper.UserMapper;
@@ -8,7 +9,8 @@ import liga.medical.personservice.core.model.security.User;
 import liga.medical.personservice.core.repository.security.RoleJpaRepository;
 import liga.medical.personservice.core.repository.security.UserJpaRepository;
 import liga.medical.personservice.core.service.security.api.UserService;
-import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
+@ToString
 public class UserServiceImpl implements UserService {
 
     private final UserJpaRepository userRepository;
@@ -31,7 +33,16 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
+    @Autowired
+    public UserServiceImpl(UserJpaRepository userRepository, RoleJpaRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userMapper = userMapper;
+    }
+
     @Override
+    @DbLog
     public void save(User user) throws NoUserRoleException {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
@@ -43,11 +54,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @DbLog
     public List<UserDto> getUsers() {
         return userMapper.toDtoList(userRepository.findAll());
     }
 
     @Override
+    @DbLog
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
